@@ -6,6 +6,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 import javax.persistence.*;
 
+import java.util.List;
+
 import static org.apache.commons.lang.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 @Entity
@@ -23,6 +25,14 @@ public class Person {
     @Column(name = "last_name")
     private String lastname;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", nullable = false)
+    private Address address;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "hobby_id")
+    private Hobby hobby;
+
     @Column(name = "favorite_color")
     private String favoriteColor;
 
@@ -30,14 +40,19 @@ public class Person {
 
     }
 
-    public Person(String firstName, String lastname, String favoriteColor) {
+    public Person(String firstName, String lastname, Address address, String favoriteColor) {
         this.firstName = firstName;
         this.lastname = lastname;
+        this.address = address;
         this.favoriteColor = favoriteColor;
     }
 
-    public void updateFavoriteColor(String newFavoriteColor) {
-        this.favoriteColor = newFavoriteColor;
+    public void updateFavoriteColor(String color) {
+        this.favoriteColor = color;
+    }
+
+    public void updateHobby(Hobby hobby) {
+        this.hobby = hobby;
     }
 
     @Override

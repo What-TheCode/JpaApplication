@@ -1,5 +1,6 @@
 package com.example.jpaapplication.service;
 
+import com.example.jpaapplication.entity.person.Hobby;
 import com.example.jpaapplication.entity.person.Person;
 import com.example.jpaapplication.repository.PersonRepository;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,14 @@ public class PersonService {
         if(this.personRepository.findByLastName(lastName) == null) {
             throw new EntityNotFoundException("Person not found");
         }
-        this.personRepository.updateFavoriteColor(lastName, color);
+        this.personRepository.updateFavoriteColor(this.personRepository.findByLastName(lastName), color);
+    }
+
+    public void updatePersonHobby(String lastName, Hobby hobby) {
+        if(this.personRepository.findByLastName(lastName) == null) {
+            throw new EntityNotFoundException("Person not found");
+        }
+        this.personRepository.updateHobby(this.personRepository.findByLastName(lastName), hobby);
     }
 
     public void removePerson(String lastName) {

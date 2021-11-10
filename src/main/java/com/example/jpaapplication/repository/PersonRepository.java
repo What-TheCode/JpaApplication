@@ -1,12 +1,15 @@
 package com.example.jpaapplication.repository;
 
+import com.example.jpaapplication.entity.person.Hobby;
 import com.example.jpaapplication.entity.person.Person;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Repository
+@Transactional
 public class PersonRepository {
 
     @PersistenceContext
@@ -26,12 +29,17 @@ public class PersonRepository {
                 .getSingleResult();
     }
 
-    public void updateFavoriteColor(String lastName, String color) {
-        Person person = this.findByLastName(lastName);
+    public void updateHobby(Person person, Hobby hobby) {
+        person.updateHobby(hobby);
+    }
+
+    public void updateFavoriteColor(Person person, String color) {
         person.updateFavoriteColor(color);
     }
 
     public void removePerson(Person person) {
         this.entityManager.remove(person);
     }
+
+
 }
