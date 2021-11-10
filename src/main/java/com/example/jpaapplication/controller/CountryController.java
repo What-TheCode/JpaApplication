@@ -3,9 +3,8 @@ package com.example.jpaapplication.controller;
 import com.example.jpaapplication.entity.country.CountryDto;
 import com.example.jpaapplication.mapper.CountryMapper;
 import com.example.jpaapplication.service.CountryService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,8 +19,9 @@ public class CountryController {
         this.countryMapper = countryMapper;
     }
 
-    @GetMapping(produces = "application/json")
-    public List<CountryDto> getCountries() {
-        return this.countryMapper.toDTO(this.countryService.getCountries());
-    }
+//    @GetMapping(produces = "application/json")
+//    @ResponseStatus(HttpStatus.OK)
+//    public List<CountryDto> getCountries(@RequestParam(name = "countryId", required = false) String countryId) {
+//        return this.countryMapper.toDTO(this.countryService.getCountries(countryId));
+//    }
 }

@@ -4,6 +4,7 @@ import com.example.jpaapplication.entity.country.Country;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class CountryRepository {
                 .getSingleResult();
     }
 
-    public Country getCountryByName(String countryName) {
+    public Country getCountryByName(String countryName){
         return this.entityManager
                 .createQuery("SELECT c FROM Country c WHERE c.countryName = :countryName", Country.class)
                 .setParameter("countryName", countryName)
