@@ -1,6 +1,9 @@
 package com.example.jpaapplication;
 
+import com.example.jpaapplication.entity.book.Book;
+import com.example.jpaapplication.entity.person.Address;
 import com.example.jpaapplication.entity.person.Hobby;
+import com.example.jpaapplication.entity.person.Person;
 import com.example.jpaapplication.service.CountryService;
 import com.example.jpaapplication.service.HobbyService;
 import com.example.jpaapplication.service.PersonService;
@@ -48,21 +51,26 @@ public class JpaApplication implements CommandLineRunner {
 //            this.personService.removePerson("T");
 
 
-//                        this.personService.addPerson(new Person("Alexander",
+//            this.personService.addPerson(new Person("Alexander",
 //                    "VW",
 //                    new Address("Dorpstraat", "101", "Oost-Vlaanderen", 9000),
 //                    "Black"));
 
 //            this.hobbyService.addHobby(new Hobby("Cycling", "Sports"));
 
-            System.out.println(this.personService.getPersonByLastName("VW"));
-
-//            this.personService.updatePersonHobby("VW", new Hobby("Photography", "Arts"));
-            this.personService.updatePersonHobby("VW", new Hobby("Woodworking", "Arts"));
-
-            System.out.println(this.personService.getPersonByLastName("VW"));
 //            System.out.println(this.personService.getPersonByLastName("VW"));
 
+//            this.personService.updatePersonHobby("VW", new Hobby("Photography", "Arts"));
+//            this.personService.updatePersonHobby("VW", new Hobby("Woodworking", "Arts"));
+
+//            System.out.println(this.personService.getPersonByLastName("VW"));
+//            System.out.println(this.personService.getPersonByLastName("VW"));
+
+            System.out.println(this.personService.getPersonByLastName("VW"));
+
+            this.personService.removeBooksContainingFirstChar("VW", 'a');
+
+            System.out.println(this.personService.getPersonByLastName("VW"));
         } catch (RuntimeException e) {
             logger.warn(e.getMessage());
         }

@@ -1,12 +1,14 @@
 package com.example.jpaapplication.entity.person;
 
+import com.example.jpaapplication.entity.book.Book;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import javax.persistence.*;
-
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.apache.commons.lang.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
@@ -25,13 +27,17 @@ public class Person {
     @Column(name = "last_name")
     private String lastname;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinColumn(name = "hobby_id")
     private Hobby hobby;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinColumn(name = "owner_id")
+    private List<Book> books;
 
     @Column(name = "favorite_color")
     private String favoriteColor;
@@ -44,7 +50,12 @@ public class Person {
         this.firstName = firstName;
         this.lastname = lastname;
         this.address = address;
+        this.books = new ArrayList<>();
         this.favoriteColor = favoriteColor;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void updateFavoriteColor(String color) {
@@ -53,6 +64,22 @@ public class Person {
 
     public void updateHobby(Hobby hobby) {
         this.hobby = hobby;
+    }
+
+    public void addBook(Book book) {
+        this.books.add(book);
+    }
+
+    public void removeBook(Book book) {
+        this.books.remove(book);
+    }
+
+    public void removeBooksContainingFirstChar(char character) {
+        this.books.removeAll(
+                this.books.stream()
+                        .filter(book -> book.getTitle().toLowerCase().charAt(0) == character)
+                        .collect(Collectors.toList())
+        );
     }
 
     @Override
@@ -69,4 +96,5 @@ public class Person {
     public String toString() {
         return ToStringBuilder.reflectionToString(this, SHORT_PREFIX_STYLE);
     }
+
 }

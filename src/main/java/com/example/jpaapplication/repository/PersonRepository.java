@@ -1,5 +1,6 @@
 package com.example.jpaapplication.repository;
 
+import com.example.jpaapplication.entity.book.Book;
 import com.example.jpaapplication.entity.person.Hobby;
 import com.example.jpaapplication.entity.person.Person;
 import org.springframework.stereotype.Repository;
@@ -31,6 +32,18 @@ public class PersonRepository {
 
     public void updateHobby(Person person, Hobby hobby) {
         person.updateHobby(hobby);
+    }
+
+    public void addBook(Person person, Book book) {
+        person.addBook(book);
+    }
+
+    public void removeBook(Person person, Book book) {
+        person.removeBook(book);
+    }
+
+    public void removeBooksContainingChar(Person person, char character) {
+        person.removeBooksContainingFirstChar(character);
     }
 
     public void updateFavoriteColor(Person person, String color) {
